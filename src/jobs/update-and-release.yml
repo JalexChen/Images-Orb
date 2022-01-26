@@ -15,16 +15,16 @@ parameters:
     type: string
     description: >
       "Defines the base image tag to use; typically changed on a quarterly basis and defaults to 2022.01"
-  DOCKER_PASS:
+  docker-password:
     type: string
-    default: "$DOCKER_TOKEN"
+    default: "DOCKER_TOKEN"
     description: >
-      "Enter your Docker Token; defaults to $DOCKER_TOKEN"
-  DOCKER_USER:
+      "Enter your Docker Token; defaults to DOCKER_TOKEN"
+  docker-username:
     type: string
-    default: "$DOCKER_USER"
+    default: "DOCKER_USER"
     decsription: >
-      "Enter your Docker User; defaults to $DOCKER_USER"
+      "Enter your Docker User; defaults to DOCKER_USER"
   publish-image:
     type: boolean
     default: false
@@ -43,10 +43,10 @@ steps:
   - setup_remote_docker:
       version: <<parameters.remote-docker-version>>
   - check-and-build:
-      DOCKER_PASS: <<parameters.DOCKER_PASS>>
-      DOCKER_USER: <<parameters.DOCKER_USER>>
+      docker-password: <<parameters.docker-password>>
+      docker-username: <<parameters.docker-username>>
   - deploy-and-update:
-      DOCKER_PASS: <<parameters.DOCKER_PASS>>
-      DOCKER_USER: <<parameters.DOCKER_USER>>
+      docker-password: <<parameters.docker-password>>
+      docker-username: <<parameters.docker-username>>
       publish-image: <<parameters.publish-image>>
       publish-branch: <<parameters.publish-branch>>

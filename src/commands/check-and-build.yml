@@ -2,16 +2,16 @@ description: >
   Checks the version of the builds and then builds the images
 
 parameters:
-  DOCKER_PASS:
-    type: string
-    default: "$DOCKER_TOKEN"
+  docker-password:
+    type: env_var_name
+    default: DOCKER_TOKEN
     description: >
-      "Enter your Docker Token; defaults to $DOCKER_TOKEN"
-  DOCKER_USER:
-    type: string
-    default: "$DOCKER_USER"
+      "Enter your Docker Token; defaults to DOCKER_TOKEN"
+  docker-username:
+    type: env_var_name
+    default: DOCKER_USER
     decsription: >
-      "Enter your Docker User; defaults to $DOCKER_USER"
+      "Enter your Docker User; defaults to DOCKER_USER"
 
 steps:
   - run:

@@ -25,6 +25,16 @@ parameters:
     default: "$DOCKER_USER"
     decsription: >
       "Enter your Docker User; defaults to $DOCKER_USER"
+  publish-image:
+    type: boolean
+    default: false
+    description: >
+      "Which image to publish"
+  publish-branch:
+    type: string
+    default: main
+    description: >
+      "Determine which branch should be updated and changes published"
 
 docker:
   - image: cimg/base:<<parameters.tag>>

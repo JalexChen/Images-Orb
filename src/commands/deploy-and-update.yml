@@ -1,0 +1,38 @@
+description: >
+  Checks if currently on a publishable branch and pushes to docker
+parameters:
+  DOCKER_PASS:
+    type: string
+    default: "$DOCKER_TOKEN"
+    description: >
+      "Enter your Docker Token; defaults to $DOCKER_TOKEN"
+  DOCKER_USER:
+    type: string
+    default: "$DOCKER_USER"
+    decsription: >
+      "Enter your Docker User; defaults to $DOCKER_USER"
+  publish-image:
+    type: boolean
+    default: false
+    description: >
+      "Which image to publish"
+  publish-branch:
+    type: string
+    default: main
+    description: >
+      "Determine which branch should be updated and changes published"
+
+steps:
+  # this when clause might be better off in the job description
+  - when:
+    - equal: [ <<parameters.publish-branch", <<pipline.git.branch>>]
+      steps:
+        - run:
+            command: |
+              echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+              if git log -1 --pretty=%s | grep "\[release\]"; then
+              echo "Publishing <<parameters.publish-image>> to Docker Hub production."
+              ./push-images.sh
+              else
+              echo "Skipping publishing."
+              fi

@@ -1,0 +1,42 @@
+description: >
+  This job utilizes the release script for any updates to language versions; automatically creates a new branch, commits, then pushes for a PR
+
+# will need to add for machine?
+# will need to add edits for database images?
+
+parameters:
+  remote-docker-version:
+    default: "20.10.11"
+    type: string
+    description: >
+      "Specify the remote docker version you'd like to use; currently defaults to 20.10.11"
+  tag:
+    default: "2022.01"
+    type: string
+    description: >
+      "Defines the base image tag to use; typically changed on a quarterly basis and defaults to 2022.01"
+  DOCKER_PASS:
+    type: string
+    default: "$DOCKER_TOKEN"
+    description: >
+      "Enter your Docker Token; defaults to $DOCKER_TOKEN"
+  DOCKER_USER:
+    type: string
+    default: "$DOCKER_USER"
+    decsription: >
+      "Enter your Docker User; defaults to $DOCKER_USER"
+
+docker:
+  - image: cimg/base:<<parameters.tag>>
+steps:
+  - checkout
+  - setup_remote_docker:
+      version: <<parameters.remote-docker-version>>
+  - check-and-build:
+      DOCKER_PASS: <<parameters.DOCKER_PASS>>
+      DOCKER_USER: <<parameters.DOCKER_USER>>
+  - deploy-and-update:
+      DOCKER_PASS: <<parameters.DOCKER_PASS>>
+      DOCKER_USER: <<parameters.DOCKER_USER>>
+      publish-image: <<parameters.publish-image>>
+      publish-branch: <<parameters.publish-branch>>

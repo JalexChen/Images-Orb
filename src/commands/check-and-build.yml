@@ -1,0 +1,24 @@
+description: >
+  Checks the version of the builds and then builds the images
+
+parameters:
+  DOCKER_PASS:
+    type: string
+    default: "$DOCKER_TOKEN"
+    description: >
+      "Enter your Docker Token; defaults to $DOCKER_TOKEN"
+  DOCKER_USER:
+    type: string
+    default: "$DOCKER_USER"
+    decsription: >
+      "Enter your Docker User; defaults to $DOCKER_USER"
+
+steps:
+  - run:
+      name: Check versions and build images
+      environment:
+        DOCKER_PASS: <<parameters.DOCKER_PASS>>
+      command: |
+        ./check-versions.sh
+        ./build-images.sh
+        echo 'export DOCKER_PASS >> $BASH_ENV

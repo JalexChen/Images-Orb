@@ -13,3 +13,9 @@ steps:
         PARAM_TO: <<parameters.to>>
       name: Hello Greeting
       command: <<include(scripts/greet.sh)>>
+
+# do i need the github cli orb?
+# what it we just ran this from slack?
+# run gen dockerfiles with the versions necessary
+# run build and push
+# how do we update the configuration with bash?

@@ -39,3 +39,23 @@ Example: `[semver:major]`
 
 For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
 
+# what jobs do I need to run here?
+  # checkout, create a new branch, make updates, push + release
+  # i'll need to be able to update the dockerfile-template
+  # i'll need to be able to update the config
+  # i'll likely need the github cli orb in order to release
+  # i'll need to be able to call sonar and/or change the sonar version
+
+  # updates will be an entire job
+  # commands will be what runs within the job
+
+# which images will I need to include as part of the updates
+# can i potentially run this as a matrix job?
+
+- should be agnostic of repo since it will be run within that repo
+
+Goal will be to make the orb that can be inserted into each config so that we only need to change things in the orb rather than all image repos
+- docker image as a variable
+- remote docker version as a variable
+- flow to build docker images
+- flow to deploy

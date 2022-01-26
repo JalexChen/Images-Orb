@@ -1,11 +1,18 @@
 description: >
-  This is a sample executor using Docker and Node.
+  Sample executor
 docker:
-  - image: 'cimg/node:<<parameters.tag>>'
+  - image: 'cimg/<<parameters.language>>:<<parameters.tag>>'
 parameters:
   tag:
-    default: lts
+    default: stable
     description: >
       Pick a specific cimg/node image variant:
       https://hub.docker.com/r/cimg/node/tags
     type: string
+  language:
+    default: base
+    type: string
+    description: >
+      Utilize a required instance of the cimg language you are looking for:
+      https://github.com/CircleCI-Public/cimg-overview
+
